@@ -4,30 +4,30 @@ This project analyzes the mass-radius relation for white dwarfs using a degenera
 
 ## Contents
 
-1. `README.md`: this file
-2. `astro_const.py`: module containing physical constants, uses `astropy`.
+1. `README.md`: This file.
+2. `astro_const.py`: Module containing physical constants, uses `astropy`.
 3. `eos.py`: Code for the equation of state. Includes:
-   - `pressure(rho, mue)`: Computes pressure \( P \) as a function of density \( \rho \) and mean molecular weight \( \mu_e \).
-   - `density(P, mue)`: Computes density \( \rho \) as a function of pressure \( P \) and \( \mu_e \).
+   - `pressure(rho, mue)`: Computes pressure (`P`) as a function of density (`rho`) and mean molecular weight (`mue`).
+   - `density(P, mue)`: Computes density (`rho`) as a function of pressure (`P`) and `mue`.
 4. `test_eos.py`: Unit test for the equation of state; compares computed values from `eos.py` and `eos_table.txt`.  
 5. `eos_table.txt`: Comparison data for the equation of state, used by `test_eos.py`.
 6. `structure.py`: Code to integrate stellar structure equations. Includes:
    - `stellar_derivatives(m, z, mue)`: Computes the derivatives of radius and pressure with respect to mass.
-   - `central_values(Pc, delta_m, mue)`: Initializes boundary conditions for integration using the central pressure \( P_c \).
+   - `central_values(Pc, delta_m, mue)`: Initializes boundary conditions for integration using the central pressure (`Pc`).
    - `lengthscales(m, z, mue)`: Calculates radial and pressure length scales for adaptive step size control.
    - `integrate(Pc, delta_m, eta, xi, mue)`: Integrates the stellar structure equations to calculate mass, radius, and pressure profiles.
-   - `pressure_guess(M, mue)`: Provides an initial estimate of the central pressure \( P_c \) for a given mass \( M \).
+   - `pressure_guess(M, mue)`: Provides an initial estimate of the central pressure (`Pc`) for a given mass (`M`).
 7. `observations.py`: Module for handling observational data. Includes:
    - `MassRadiusObservations`: A class to read, store, and process observational data from `Joyce.txt`.
-   - `make_observation_plot(ax, observations)`: Plots observed mass-radius data net to theoretical predictions.
+   - `make_observation_plot(ax, observations)`: Plots observed mass-radius data next to theoretical predictions.
 8. `Joyce.txt`: Table 4, Joyce et al. (2018). Data for `observations.py`.
+
 
 # Report: White Dwarf Mass-Radius Relation
 
 ## 1. Introduction
 
-White dwarfs are stellar remnants supported by electron degeneracy pressure, resulting in a unique mass-radius relationship. This project computes the mass-radius relation for white dwarfs using a non-relativistic degenerate equation of state (EOS) and compares the results with observational data from Joyce et al. (2018). The report discusses the methodology, numerical implementation, results, and limitations of the model.
-
+White dwarfs are stellar remnants supported by electron degeneracy pressure, resulting in a unique mass-radius relationship. This project computes the mass-radius relation for white dwarfs using a non-relativistic degenerate equation of state (EOS) and compares the results with observational data from Joyce et al. (2018).
 ---
 
 ## 2. Testing the Equation of State (EOS)
@@ -38,7 +38,7 @@ The EOS relates pressure (\( P \)) and density (\( \rho \)) for a degenerate ele
 
 ## 3. Convergence of Numerical Integration
 
-### 3a. Rationale for Parameters (\( \delta_m, \eta, \xi \)) (**5 pts**)
+### 3a. Rationale for Parameters (\( \delta_m, \eta, \xi \))
 - **\( \delta_m \):**  
   \( \delta_m \) represents the initial mass step near the core where density and pressure are approximately constant. A small value ensures accurate integration without numerical instability. After testing, \( \delta_m = 10^{-10} M_\odot \) provided stable results.
 
@@ -48,7 +48,7 @@ The EOS relates pressure (\( P \)) and density (\( \rho \)) for a degenerate ele
 - **\( \xi \):**  
   \( \xi \) scales the integration step size based on radial and pressure length scales. A value of \( \xi = 0.01 \) was optimal, balancing computational efficiency and accuracy.
 
-### 3b. Scaling of Central Pressure and Density (**3 pts**)
+### 3b. Scaling of Central Pressure and Density
 - The central pressure scales as:
   \[
   P_c \propto \frac{GM^2}{R^4}
@@ -68,14 +68,14 @@ The EOS relates pressure (\( P \)) and density (\( \rho \)) for a degenerate ele
 ### Mass-Radius Relation
 A mass-radius table was computed for white dwarf masses ranging from \( 0.1 M_\odot \) to \( 1.0 M_\odot \). The results are consistent with theoretical predictions, showing a decrease in radius with increasing mass due to stronger gravitational compression.
 
-### Visualization (**3 pts**)
+### Visualization 
 The theoretical mass-radius relation was plotted alongside observational data from Joyce et al. (2018). Error bars were included for the observational data, and the plot showed good agreement, particularly for lower-mass white dwarfs. 
 
 ![Mass-Radius Relation](MR_Joyce.png)
 
 ---
 
-## 5. Discussion: Realism of the Model (**3 pts**)
+## 5. Discussion: Realism of the Model 
 
 The model assumes:
 1. **Ideal Non-Relativistic Degenerate Gas:**  
@@ -87,13 +87,11 @@ The model assumes:
 3. **Spherical Symmetry:**  
    The model assumes perfect spherical symmetry, neglecting effects like rotation or magnetic fields, which could influence the radius.
 
-Despite these simplifications, the model provides a robust first-order approximation to the mass-radius relation, validated by the agreement with observational data.
-
 ---
 
 ## 6. Conclusion
 
-This project successfully modeled the mass-radius relation of white dwarfs using a computational approach. The results align well with observational data, supporting the theoretical framework of degenerate electron pressure. Future work could incorporate relativistic corrections and explore deviations due to magnetic fields or rotation.
+This project successfully modeled the mass-radius relation of white dwarfs using a computational approach. The results align well with observational data, supporting the theoretical framework of degenerate electron pressure.
 
 ---
 
